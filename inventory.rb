@@ -1,6 +1,7 @@
 #!/usr/bin/ruby
 
 require 'json'
+require 'time'
 
 STDOUT.sync = true
 
@@ -10,11 +11,14 @@ INVENTORY = Array(0..100)
 RANDOMNESS = Array(1..3)
 
 loop do
+  timestamp = Time.now.utc.iso8601
+
   RANDOMNESS.sample.times do
     puts JSON.generate({
       store: STORE_STORES.sample,
       model: SHOES_MODELS.sample,
       inventory: INVENTORY.sample,
+      timestamp: timestamp
     }, quirks_mode: true)
   end
   sleep 1
