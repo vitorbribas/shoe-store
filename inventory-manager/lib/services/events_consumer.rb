@@ -12,7 +12,7 @@ module Services
           ws = Faye::WebSocket::Client.new(EVENTS_URL)
 
           ws.on :open do |event|
-            puts "Connected to WebSocket server"
+            logger.info("Connected to WebSocket server on #{EVENTS_URL}")
           end
 
           ws.on :message do |event|
@@ -21,7 +21,7 @@ module Services
           end
 
           ws.on :close do |event|
-            puts "Disconnected from WebSocket server"
+            logger.info("Disconnected from WebSocket server")
             EM.stop
           end
         end
@@ -31,8 +31,11 @@ module Services
 
       def save_event(data)
         store = Store.find_or_create_by(name: data.dig(:store))
+        model = Model.find_or_create_by(name: data.dig(:model))
 
-        logger.info("Store: #{store.name}")
+        inventory = store.inventories.create(model:, amount: data.dig(:inventory))
+
+        logger.info("Store: #{inventory.attributes}")
       end
 
       def logger
