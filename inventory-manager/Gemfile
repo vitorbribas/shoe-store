@@ -10,6 +10,13 @@ gem "puma", "~> 5.0"
 gem "importmap-rails"
 gem "tzinfo-data", platforms: %i[ mingw mswin x64_mingw jruby ]
 
+# Websocket processing
+gem 'faye-websocket', '~> 0.11.3'
+gem 'eventmachine', '~> 1.2', '>= 1.2.0.1'
+
+# ENV variables
+gem 'dotenv-rails', '~> 2.1', '>= 2.1.1'
+
 group :development, :test do
   gem "debug", platforms: %i[ mri mingw x64_mingw ]
 end
