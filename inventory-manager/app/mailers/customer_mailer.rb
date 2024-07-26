@@ -1,0 +1,9 @@
+class CustomerMailer < ApplicationMailer
+  def model_available_again(customer)
+    @customer = customer
+    @model = customer.model
+    @store = customer.store
+
+    mail(to: @customer.email, subject: 'Hey! Your favorite shoe is back')
+  end
+end

@@ -17,6 +17,9 @@ gem 'eventmachine', '~> 1.2', '>= 1.2.0.1'
 # ENV variables
 gem 'dotenv-rails', '~> 2.1', '>= 2.1.1'
 
+# Cache
+gem 'redis', '~> 5.2'
+
 group :development, :test do
   gem "debug", platforms: %i[ mri mingw x64_mingw ]
 end
