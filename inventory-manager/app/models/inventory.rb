@@ -2,9 +2,7 @@ class Inventory < ApplicationRecord
   belongs_to :store
   belongs_to :model
 
-  has_many :subscribed_customers, -> { where(store_id: store.id, model_id: model.id) }, class_name: 'Customer'
-
-  scope :of_model, -> (name) { joins(:model).where(model: { name: }).order(created_at: :asc) }
+  scope :of_model, ->(name) { joins(:model).where(model: { name: }).order(created_at: :asc) }
 
   validates :amount, presence: true
 
@@ -33,7 +31,7 @@ class Inventory < ApplicationRecord
   end
 
   def notify_subscribed_customers!
-    subscribed_customers.find_each do |customer|
+    store.subscribed_customers.by_model(model_id).find_each do |customer|
       CustomerMailer.model_available_again(customer).deliver_now
     end
   end
