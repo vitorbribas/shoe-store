@@ -1,9 +1,13 @@
+# frozen_string_literal: true
+
 class Store < ApplicationRecord
   class InvalidModelName < StandardError; end
 
-  has_many :inventories
+  has_many :inventories, dependent: :destroy
   has_many :models, -> { distinct }, through: :inventories
-  has_many :subscribed_customers, ->(store) { where(store_id: store.id) }, class_name: 'Customer'
+  has_many :subscribed_customers, lambda { |store|
+                                    where(store_id: store.id)
+                                  }, class_name: 'Customer'
 
   validates :name, presence: true
 

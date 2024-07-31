@@ -2,22 +2,23 @@
 
 require 'rails_helper'
 
-RSpec.describe Customer, type: :model do
+RSpec.describe Customer do
   subject(:customer) { build(:customer) }
 
   describe 'validations' do
     it { is_expected.to validate_presence_of(:name) }
     it { is_expected.to validate_presence_of(:email) }
+
     it do
-      is_expected.to validate_uniqueness_of(:email)
+      expect(subject).to validate_uniqueness_of(:email)
         .ignoring_case_sensitivity
         .scoped_to(%i[store_id model_id])
     end
   end
 
   describe 'relationships' do
-    it { should belong_to(:store) }
-    it { should belong_to(:model) }
+    it { is_expected.to belong_to(:store) }
+    it { is_expected.to belong_to(:model) }
   end
 
   describe '.by_model' do
@@ -33,7 +34,7 @@ RSpec.describe Customer, type: :model do
 
     it do
       expect(by_model.size).to eq(5)
-      expect(by_model.pluck(:model_id).all?(model.id)).to be_truthy
+      expect(by_model.pluck(:model_id)).to be_all(model.id)
     end
   end
 end

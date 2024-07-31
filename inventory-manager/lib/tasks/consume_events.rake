@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 require_relative '../services/events_consumer'
 
 namespace :consume_events do

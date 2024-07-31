@@ -2,7 +2,7 @@
 
 require 'rails_helper'
 
-RSpec.describe Inventory, type: :model do
+RSpec.describe Inventory do
   subject(:inventory) { build(:inventory) }
 
   describe 'validations' do
@@ -10,8 +10,8 @@ RSpec.describe Inventory, type: :model do
   end
 
   describe 'relationships' do
-    it { should belong_to(:store) }
-    it { should belong_to(:model) }
+    it { is_expected.to belong_to(:store) }
+    it { is_expected.to belong_to(:model) }
   end
 
   describe '.of_model' do
@@ -28,7 +28,7 @@ RSpec.describe Inventory, type: :model do
 
     it do
       expect(of_model.size).to eq(5)
-      expect(of_model.pluck(:model_id).all?(model.id)).to be_truthy
+      expect(of_model.pluck(:model_id).all?(model.id)).to be_true
     end
   end
 

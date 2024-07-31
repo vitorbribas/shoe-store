@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 class CustomerMailer < ApplicationMailer
   def model_available_again(customer)
     @customer = customer

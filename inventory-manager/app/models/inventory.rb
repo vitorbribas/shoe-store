@@ -1,8 +1,12 @@
+# frozen_string_literal: true
+
 class Inventory < ApplicationRecord
   belongs_to :store
   belongs_to :model
 
-  scope :of_model, ->(name) { joins(:model).where(model: { name: }).order(created_at: :asc) }
+  scope :of_model, lambda { |name|
+                     joins(:model).where(model: { name: }).order(created_at: :asc)
+                   }
 
   validates :amount, presence: true
 
@@ -18,7 +22,8 @@ class Inventory < ApplicationRecord
   private
 
   def notify_model_available_again
-    previous_id = Rails.cache.fetch(self.class.cache_key_for(store.name, model.name)) { id }
+    previous_id = Rails.cache
+      .fetch(self.class.cache_key_for(store.name, model.name)) { id }
     previous_inventory = self.class.find_by(id: previous_id)
 
     return unless model_got_back?(previous_inventory)

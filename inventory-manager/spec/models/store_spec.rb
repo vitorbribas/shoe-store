@@ -2,7 +2,7 @@
 
 require 'rails_helper'
 
-RSpec.describe Store, type: :model do
+RSpec.describe Store do
   subject(:store) { build(:store) }
 
   describe 'validations' do
@@ -10,8 +10,8 @@ RSpec.describe Store, type: :model do
   end
 
   describe 'relationships' do
-    it { should have_many(:inventories) }
-    it { should have_many(:models).through(:inventories) }
+    it { is_expected.to have_many(:inventories).dependent(:destroy) }
+    it { is_expected.to have_many(:models).through(:inventories) }
 
     it do
       store = build(:store)
@@ -46,7 +46,7 @@ RSpec.describe Store, type: :model do
         end
 
         it :aggregate_failures do
-          expect(Rails.cache.exist?(cache_key)).to be_falsy
+          expect(Rails.cache).not_to exist(cache_key)
 
           expect(current_amount_of).to eq(latest_inventory.amount)
 
@@ -56,11 +56,11 @@ RSpec.describe Store, type: :model do
 
       context 'when model doesnt have inventory register' do
         it :aggregate_failures do
-          expect(Rails.cache.exist?(cache_key)).to be_falsy
+          expect(Rails.cache).not_to exist(cache_key)
 
           expect(current_amount_of).to be_zero
 
-          expect(Rails.cache.read(cache_key)).to eq(nil)
+          expect(Rails.cache.read(cache_key)).to be_nil
         end
       end
     end

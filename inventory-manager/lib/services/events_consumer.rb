@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 require 'faye/websocket'
 require 'eventmachine'
 require 'json'
@@ -11,7 +13,7 @@ module Services
         EM.run do
           ws = Faye::WebSocket::Client.new(EVENTS_URL)
 
-          ws.on :open do |event|
+          ws.on :open do |_event|
             logger.info("Connected to WebSocket server on #{EVENTS_URL}")
           end
 
@@ -20,8 +22,8 @@ module Services
             save_event(data)
           end
 
-          ws.on :close do |event|
-            logger.info("Disconnected from WebSocket server")
+          ws.on :close do |_event|
+            logger.info('Disconnected from WebSocket server')
             EM.stop
           end
         end
@@ -30,10 +32,10 @@ module Services
       private
 
       def save_event(data)
-        store = Store.find_or_create_by(name: data.dig(:store))
-        model = Model.find_or_create_by(name: data.dig(:model))
+        store = Store.find_or_create_by(name: data[:store])
+        model = Model.find_or_create_by(name: data[:model])
 
-        inventory = store.inventories.create(model:, amount: data.dig(:inventory))
+        inventory = store.inventories.create(model:, amount: data[:inventory])
 
         logger.info("Store: #{inventory.attributes}")
       end

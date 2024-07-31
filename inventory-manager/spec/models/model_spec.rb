@@ -2,7 +2,7 @@
 
 require 'rails_helper'
 
-RSpec.describe Model, type: :model do
+RSpec.describe Model do
   subject(:model) { build(:model) }
 
   describe 'validations' do
@@ -10,7 +10,7 @@ RSpec.describe Model, type: :model do
   end
 
   describe 'relationships' do
-    it { should have_many(:inventories) }
-    it { should have_many(:stores).through(:inventories) }
+    it { is_expected.to have_many(:inventories).dependent(:destroy) }
+    it { is_expected.to have_many(:stores).through(:inventories) }
   end
 end
