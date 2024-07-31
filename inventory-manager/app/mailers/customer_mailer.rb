@@ -6,6 +6,6 @@ class CustomerMailer < ApplicationMailer
     @model = customer.model
     @store = customer.store
 
-    mail(to: @customer.email, subject: 'Hey! Your favorite shoe is back')
+    mail(to: @customer.email, subject: I18n.t('mailers.customer.model_available_again'))
   end
 end

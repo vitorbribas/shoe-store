@@ -10,7 +10,7 @@ RSpec.describe Customer do
     it { is_expected.to validate_presence_of(:email) }
 
     it do
-      expect(subject).to validate_uniqueness_of(:email)
+      expect(customer).to validate_uniqueness_of(:email)
         .ignoring_case_sensitivity
         .scoped_to(%i[store_id model_id])
     end
@@ -32,9 +32,9 @@ RSpec.describe Customer do
       create_list(:customer, 5, store:)
     end
 
-    it do
+    it :aggregate_failures do
       expect(by_model.size).to eq(5)
-      expect(by_model.pluck(:model_id)).to be_all(model.id)
+      expect(by_model.pluck(:model_id).all?(model.id)).to be true
     end
   end
 end

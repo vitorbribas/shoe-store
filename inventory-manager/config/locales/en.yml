@@ -31,3 +31,6 @@
 
 en:
   hello: "Hello world"
+  mailers:
+    customer:
+      model_available_again: 'Hey! Your favorite shoe is back'

@@ -17,6 +17,7 @@ RSpec.describe Store do
       store = build(:store)
 
       expect(store).to have_many(:subscribed_customers)
+        .dependent(:destroy)
         .class_name('Customer')
         .conditions(store_id: store.id)
     end

@@ -26,9 +26,9 @@ RSpec.describe Inventory do
       create_list(:inventory, 5, store:)
     end
 
-    it do
+    it :aggregate_failures do
       expect(of_model.size).to eq(5)
-      expect(of_model.pluck(:model_id).all?(model.id)).to be_true
+      expect(of_model.pluck(:model_id).all?(model.id)).to be true
     end
   end
 

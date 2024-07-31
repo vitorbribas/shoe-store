@@ -36,6 +36,7 @@ Layout/LineLength:
     - '^\s*it\s.+\sdo$'
     - '^\s*context\s.+\sdo$'
     - 'expect'
+    - '#'
 
 Lint/AmbiguousBlockAssociation:
   AllowedMethods:
