@@ -1,11 +1,14 @@
 # Shoe Stores - Dashboard
 
-Dependencies:
+## Dependencies:
 - Node > 20
 - Yarn
 
-Start client application for consuming websocket with:
+## Starting the aplication:
 
-```shell
-yarn dev
-```
+1. Install project packages: `yarn install`
+
+2. Run the client websocket consumer: `yarn dev`
+
+3. Go to [http://localhost:5173](http://localhost:5173) to observe inventory charts.
+
