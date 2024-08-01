@@ -1,5 +1,10 @@
 # Shoe Store
 
+## Proposed architecture:
+
+![image](https://github.com/user-attachments/assets/f324e13e-ebaa-4dd2-97a6-15116767b05c)
+
+
 ## Synopsis
 
 Aldo Shoes is having a huge flash sale online. You provide support to the inventory department. They want to react real-time to various inventory problems as they arise.
